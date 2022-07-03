@@ -1,7 +1,7 @@
 <template>
   <q-layout view="lHh Lpr lFf">
-    <q-header elevated>
-      <q-toolbar>
+    <q-header>
+      <q-toolbar class="text-black q-toolbar">
         <q-btn
           flat
           dense
@@ -12,10 +12,8 @@
         />
 
         <q-toolbar-title>
-          Quasar App
+          瞩暮行者
         </q-toolbar-title>
-
-        <div>Quasar v{{ $q.version }}</div>
       </q-toolbar>
     </q-header>
 
@@ -107,3 +105,10 @@ export default {
   }
 }
 </script>
+<style lang="scss" scoped>
+@import "src/css/quasar.variables.scss";
+
+.q-toolbar {
+  background: $gray;
+}
+</style>

@@ -1,1 +1,37 @@
 // app global css in SCSS form
+.flex-center-horizontal {
+  justify-content: center;
+}
+
+.flex-center-vertical {
+  align-items: center;
+}
+
+.flex-direction-horizontal {
+  flex-direction: row;
+}
+
+.flex-direction-vertical {
+  flex-direction: column;
+}
+
+.q-pl-16 {
+  padding-left: 16px;
+}
+
+.q-pt-16 {
+  padding-top: 16px;
+}
+
+.q-ml-8 {
+  margin-left: 8px;
+}
+
+.q-mt-16 {
+  margin-top: 16px;
+}
+
+.q-mh-24 {
+  margin-left: 24px;
+  margin-right: 24px;
+}

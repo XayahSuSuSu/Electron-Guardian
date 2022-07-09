@@ -35,7 +35,7 @@
             <div class="flex flex-direction-horizontal">
               <q-avatar rounded color="blue" text-color="white" icon="fa-solid fa-battery-full"/>
               <div class="flex-direction-vertical q-ml-8">
-                <div class="text-subtitle1">小鹰电量</div>
+                <div class="text-subtitle1">鹰眼电量</div>
                 <div class="text-subtitle2 text-weight-bold">90%</div>
               </div>
             </div>

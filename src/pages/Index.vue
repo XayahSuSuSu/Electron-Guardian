@@ -69,6 +69,7 @@ export default {
     },
   },
   mounted() {
+    document.title = "瞩暮行者维护端"
     this.createCodeFn()
   }
 

@@ -2,7 +2,7 @@
   "name": "guardian",
   "version": "0.0.1",
   "description": "Guardian Project",
-  "productName": "Guardian App",
+  "productName": "Guardian",
   "author": "Xayah <zds1249475336@gmail.com>",
   "private": true,
   "scripts": {

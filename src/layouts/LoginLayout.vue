@@ -29,6 +29,9 @@ export default {
       ipcRenderer.send('closeLoginWindow')
       ipcRenderer.send('openMainWindow')
     }
+  },
+  mounted() {
+    document.title = "登录"
   }
 }
 </script>

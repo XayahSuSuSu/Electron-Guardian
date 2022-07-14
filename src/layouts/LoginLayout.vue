@@ -8,11 +8,25 @@
       <q-btn round padding="md" size="md" color="negative" class="q-mv-24" @click="openMainWindow"
              icon="fa-solid fa-arrow-right-to-bracket"/>
     </q-card>
+    <q-dialog v-model="error" persistent>
+      <q-card>
+        <q-card-section class="row items-center">
+          <q-avatar icon="fa-solid fa-circle-exclamation" color="negative" text-color="white"/>
+          <span class="q-ml-sm">{{ msg }}</span>
+        </q-card-section>
+
+        <q-card-actions align="right">
+          <q-btn flat label="确定" color="primary" v-close-popup/>
+        </q-card-actions>
+      </q-card>
+    </q-dialog>
   </q-layout>
 </template>
 <script>
 import logo from "src/assets/logo.png"
 import {ipcRenderer} from 'electron'
+import {login} from "src/request/api";
+import crypto from "crypto";
 
 export default {
   name: 'LoginLayout',
@@ -21,17 +35,53 @@ export default {
     return {
       logo: logo,
       username: '',
-      password: ''
+      password: '',
+      error: false,
+      msg: ''
     }
   },
   methods: {
+    saveAccount() {
+      const saveDate = new Date()
+      const saveDay = 7
+      saveDate.setTime(saveDate.getTime() + 24 * 60 * 60 * 1000 * saveDay)
+      window.document.cookie = 'username' + '=' + this.username + ';path=/;expires=' + saveDate.toGMTString()
+      window.document.cookie = 'password' + '=' + this.password + ';path=/;expires=' + saveDate.toGMTString()
+    },
+    getAccount() {
+      const cookies = window.document.cookie.split('; ')
+      for (const i in cookies) {
+        const item = cookies[i].split('=')
+        if (item[0] === 'username') {
+          this.username = item[1]
+        } else if (item[0] === 'password') {
+          this.password = item[1]
+        }
+      }
+    },
     openMainWindow() {
-      ipcRenderer.send('closeLoginWindow')
-      ipcRenderer.send('openMainWindow')
+      const md5 = crypto.createHash("md5");
+      md5.update(this.password);
+      let data = new FormData();
+      data.append('username', this.username);
+      data.append('password', md5.digest('hex'));
+      login(data).then(res => {
+        const mRes = res
+        if (mRes.data.code === 1) {
+          this.saveAccount()
+          ipcRenderer.send('closeLoginWindow')
+          ipcRenderer.send('openMainWindow')
+        } else {
+          // 登录失败
+          this.error = true
+          this.msg = mRes.data.msg
+        }
+      })
     }
   },
   mounted() {
     document.title = "登录"
+    this.getAccount()
   }
 }
 </script>

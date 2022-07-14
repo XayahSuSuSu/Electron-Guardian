@@ -27,8 +27,8 @@ app.whenReady().then(() => {
               win.webContents.focus()
             })
             // open electron debug
-            console.log('Opening dev tools')
-            win.webContents.openDevTools()
+            // console.log('Opening dev tools')
+            // win.webContents.openDevTools()
           })
         }
       })

@@ -61,6 +61,18 @@
         </div>
       </q-list>
     </q-drawer>
+    <q-dialog v-model="alert" persistent>
+      <q-card>
+        <q-card-section>
+          <div class="text-h6">设备授权</div>
+        </q-card-section>
+
+        <q-card-section>
+          <q-img width="300px" height="300px" :src="qrCode"/>
+        </q-card-section>
+
+      </q-card>
+    </q-dialog>
     <q-page-container>
       <router-view/>
     </q-page-container>
@@ -68,6 +80,9 @@
 </template>
 
 <script>
+import store from 'src/store/index'
+import address, {checkAuthorizeQRCode, getAuthorizeQRCode} from "src/request/api";
+
 const menuList = [
   {
     title: '主页',
@@ -87,10 +102,37 @@ export default {
       leftDrawerOpen: false,
       menu: menuList,
       menuActive: '主页',
+      alert: true,
+      qrCode: '',
+      qrId: '',
+      refreshTime: 1000
     }
   },
   methods: {},
   mounted() {
+    this.alert = store.state.deviceCode === ''
+    if (this.alert)
+      getAuthorizeQRCode().then(res => {
+        const mRes = res
+        this.qrCode = address + "/" + mRes.data.data.url
+        this.qrId = mRes.data.data.id
+      })
+  },
+  created() {
+    const check = setInterval(() => {
+      setTimeout(() => {
+        checkAuthorizeQRCode(this.qrId).then(res => {
+          const deviceCode = res.data.data['device_code']
+          if (deviceCode !== '') {
+            store.commit('setDeviceCode', deviceCode)
+            console.log(store.state.deviceCode)
+            this.alert = false
+            clearInterval(check)
+          }
+        })
+      }, 0)
+    }, this.refreshTime)
+
   }
 }
 </script>

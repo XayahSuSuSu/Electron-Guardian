@@ -43,36 +43,17 @@
         </div>
       </q-card-section>
     </q-card>
-    <q-img id="code"/>
   </q-page>
 </template>
 
 <script>
-import {BrowserQRCodeSvgWriter} from "@zxing/library";
-import crypto from 'crypto'
-
 export default {
   name: 'PageIndex',
   data: () => ({}),
-  methods: {
-    createCodeFn() {
-      const codeWriter = new BrowserQRCodeSvgWriter();
-      const timestamp = Date.now()
-      const md5 = crypto.createHash("md5");
-      md5.update(timestamp.toString());
-      const code = md5.digest('hex');
-      const device = {
-        'timestamp': timestamp,
-        'code': code
-      }
-      codeWriter.writeToDom("#code", JSON.stringify(device), 300, 300);
-    },
-  },
+  methods: {},
   mounted() {
     document.title = "瞩暮行者维护端"
-    this.createCodeFn()
   }
-
 }
 </script>
 <style lang="scss" scoped>

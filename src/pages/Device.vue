@@ -52,9 +52,8 @@
 </template>
 
 <script>
-import api, {addDevice, getDevices, login} from "src/request/api";
+import api, {addDevice, getDevices} from "src/request/api";
 import address from "src/request/api";
-import {ipcRenderer} from "electron";
 
 export default {
   name: 'PageIndex',

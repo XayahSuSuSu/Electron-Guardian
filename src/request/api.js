@@ -27,3 +27,17 @@ export async function getAuthorizeQRCode() {
 export async function checkAuthorizeQRCode(id) {
   return await get(address + '/api/v1/authorize' + '?id=' + id)
 }
+
+/**
+ * 获取设备列表
+ */
+export async function getDevices() {
+  return await get(address + '/api/v1/device')
+}
+
+/**
+ * 添加设备
+ */
+export async function addDevice() {
+  return await post(address + '/api/v1/device', new FormData())
+}

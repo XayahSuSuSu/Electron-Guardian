@@ -49,7 +49,7 @@
             :key="i.title"
             v-for="i in menu"
             :active="menuActive === i.title"
-            @click="menuActive = i.title"
+            @click="menuActive = i.title; toDevice(i.title)"
             class="menu-item q-mt-xs"
             active-class="menu-item-active"
           >
@@ -92,6 +92,10 @@ const menuList = [
     title: '设备管理',
     icon: 'fa-solid fa-desktop',
   },
+  {
+    title: '建图管理',
+    icon: 'fa-solid fa-layer-group',
+  },
 ];
 
 export default {
@@ -108,7 +112,17 @@ export default {
       refreshTime: 1000
     }
   },
-  methods: {},
+  methods: {
+    toDevice(title) {
+      switch (title) {
+        case "设备管理":
+          this.$router.push('/device');
+          break
+        default:
+          this.$router.push('/main');
+      }
+    }
+  },
   mounted() {
     this.alert = store.state.deviceCode === ''
     if (this.alert)
@@ -121,18 +135,17 @@ export default {
   created() {
     const check = setInterval(() => {
       setTimeout(() => {
+        if (store.state.deviceCode !== '') clearInterval(check)
         checkAuthorizeQRCode(this.qrId).then(res => {
           const deviceCode = res.data.data['device_code']
           if (deviceCode !== '') {
             store.commit('setDeviceCode', deviceCode)
             console.log(store.state.deviceCode)
             this.alert = false
-            clearInterval(check)
           }
         })
       }, 0)
     }, this.refreshTime)
-
   }
 }
 </script>

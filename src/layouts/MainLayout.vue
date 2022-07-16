@@ -20,88 +20,77 @@
     <q-drawer
       v-model="leftDrawerOpen"
       show-if-above
+      :width="250"
       bordered
+      dense
       content-class="bg-grey-1"
     >
-      <q-list>
-        <q-item-label
-          header
-          class="text-grey-8"
-        >
-          Essential Links
-        </q-item-label>
-        <EssentialLink
-          v-for="link in essentialLinks"
-          :key="link.title"
-          v-bind="link"
-        />
+      <q-list dense>
+        <div class="q-mt-md q-mb-md">
+          <div class="flex flex-direction-horizontal flex-center-vertical q-ml-md">
+            <q-avatar font-size="36px" icon="fa-solid fa-user"/>
+            <div class="flex-direction-vertical q-ml-md">
+              <q-item-label class="text-h6 ">
+                admin
+              </q-item-label>
+              <q-item-label class="text-grey-8 text-subtitle2 ">
+                超级管理员
+              </q-item-label>
+            </div>
+            <q-btn round dense size="xs" flat icon="fa-solid fa-arrow-right-from-bracket"
+                   style="margin-right: 6px;padding: 12px;margin-left: auto"/>
+          </div>
+        </div>
+        <q-separator/>
+        <div class="q-mt-xs q-pl-xs q-pr-xs">
+          <q-item
+            clickable
+            v-ripple
+            :key="i.title"
+            v-for="i in menu"
+            :active="menuActive === i.title"
+            @click="menuActive = i.title"
+            class="menu-item q-mt-xs"
+            active-class="menu-item-active"
+          >
+            <q-item-section avatar>
+              <q-icon :name="i.icon" size="xs"/>
+            </q-item-section>
+            <q-item-section>{{ i.title }}</q-item-section>
+          </q-item>
+        </div>
       </q-list>
     </q-drawer>
-
     <q-page-container>
-      <router-view />
+      <router-view/>
     </q-page-container>
   </q-layout>
 </template>
 
 <script>
-import EssentialLink from 'components/EssentialLink.vue'
-
-const linksData = [
+const menuList = [
   {
-    title: 'Docs',
-    caption: 'quasar.dev',
-    icon: 'school',
-    link: 'https://quasar.dev'
+    title: '主页',
+    icon: 'fa-solid fa-house',
   },
   {
-    title: 'Github',
-    caption: 'github.com/quasarframework',
-    icon: 'code',
-    link: 'https://github.com/quasarframework'
+    title: '设备管理',
+    icon: 'fa-solid fa-desktop',
   },
-  {
-    title: 'Discord Chat Channel',
-    caption: 'chat.quasar.dev',
-    icon: 'chat',
-    link: 'https://chat.quasar.dev'
-  },
-  {
-    title: 'Forum',
-    caption: 'forum.quasar.dev',
-    icon: 'record_voice_over',
-    link: 'https://forum.quasar.dev'
-  },
-  {
-    title: 'Twitter',
-    caption: '@quasarframework',
-    icon: 'rss_feed',
-    link: 'https://twitter.quasar.dev'
-  },
-  {
-    title: 'Facebook',
-    caption: '@QuasarFramework',
-    icon: 'public',
-    link: 'https://facebook.quasar.dev'
-  },
-  {
-    title: 'Quasar Awesome',
-    caption: 'Community Quasar projects',
-    icon: 'favorite',
-    link: 'https://awesome.quasar.dev'
-  }
 ];
 
 export default {
   name: 'MainLayout',
-  components: {
-    EssentialLink
-  },
-  data () {
+  components: {},
+  data() {
     return {
       leftDrawerOpen: false,
-      essentialLinks: linksData
+      menu: menuList,
+      menuActive: '主页',
     }
+  },
+  methods: {},
+  mounted() {
   }
 }
 </script>
@@ -110,5 +99,15 @@ export default {
 
 .q-toolbar {
   background: $gray;
+}
+
+.menu-item {
+  border-radius: 32px
+}
+
+.menu-item-active {
+  color: #3476d3;
+  background: #e5effa;
+  border-radius: 32px
 }
 </style>

@@ -140,7 +140,6 @@ export default {
           const deviceCode = res.data.data['device_code']
           if (deviceCode !== '') {
             store.commit('setDeviceCode', deviceCode)
-            console.log(store.state.deviceCode)
             this.alert = false
           }
         })

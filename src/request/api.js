@@ -41,3 +41,17 @@ export async function getDevices() {
 export async function addDevice() {
   return await post(address + '/api/v1/device', new FormData())
 }
+
+/**
+ * 检查服务器连接
+ */
+export async function checkServer() {
+  return await get(address + '/api/v1/check')
+}
+
+/**
+ * 获取设备状态
+ */
+export async function getState(deviceCode) {
+  return await get(address + '/api/v1/state' + '?device_code=' + deviceCode)
+}

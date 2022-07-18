@@ -138,8 +138,16 @@ export default {
         if (store.state.deviceCode !== '') clearInterval(check)
         checkAuthorizeQRCode(this.qrId).then(res => {
           const deviceCode = res.data.data['device_code']
+          const rtmpAddressCourt = res.data.data['rtmp_address_court']
+          const rtmpAddressCar = res.data.data['rtmp_address_car']
+          const mDevice = {
+            device_code: deviceCode,
+            rtmp_address_court: rtmpAddressCourt,
+            rtmp_address_car: rtmpAddressCar,
+          }
           if (deviceCode !== '') {
-            store.commit('setDeviceCode', deviceCode)
+            store.commit('setDevice', mDevice)
+            console.log(store.state)
             this.alert = false
           }
         })

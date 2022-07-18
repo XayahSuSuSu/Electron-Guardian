@@ -5,11 +5,15 @@ Vue.use(Vuex)
 
 const store = new Vuex.Store({
   state: {
-    deviceCode: ''
+    deviceCode: '',
+    rtmpAddressCourt: '',
+    rtmpAddressCar: '',
   },
   mutations: {
-    setDeviceCode(state, code) {
-      state.deviceCode = code
+    setDevice(state, data) {
+      state.deviceCode = data['device_code']
+      state.rtmpAddressCourt = data['rtmp_address_court']
+      state.rtmpAddressCar = data['rtmp_address_car']
     }
   }
 })

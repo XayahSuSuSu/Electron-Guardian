@@ -43,12 +43,25 @@
         </div>
       </q-card-section>
     </q-card>
+    <q-card class="q-box q-mt-24 q-mh-24">
+      <q-card-section class="flex" style="justify-content: space-between">
+        <div class="flex flex-direction-vertical">
+          <video id="videoCourt" controls height="220"/>
+          <div class="text-center text-h6 q-mt-12">庭院摄像头</div>
+        </div>
+        <div class="flex flex-direction-vertical">
+          <video id="videoCar" controls height="220"/>
+          <div class="text-center text-h6 q-mt-12">行者摄像头</div>
+        </div>
+      </q-card-section>
+    </q-card>
   </q-page>
 </template>
 
 <script>
-import {checkAuthorizeQRCode, checkServer, getState} from "src/request/api";
+import {checkServer, getState} from "src/request/api";
 import store from "src/store";
+import flvjs from 'flv.js'
 
 export default {
   name: 'PageIndex',
@@ -83,6 +96,29 @@ export default {
           }
         })
       }
+    },
+    setVideo() {
+      if (flvjs.isSupported()) {
+        const videoCourt = document.getElementById('videoCourt');
+        const flvPlayerCourt = flvjs.createPlayer({
+          type: 'flv',
+          isLive: true,
+          url: store.state.rtmpAddressCourt.replace("rtmp", "http").replace("33308", "33309") + ".flv"
+        });
+        flvPlayerCourt.attachMediaElement(videoCourt);
+        flvPlayerCourt.load();
+        flvPlayerCourt.play();
+
+        const videoCar = document.getElementById('videoCar');
+        const flvPlayerCar = flvjs.createPlayer({
+          type: 'flv',
+          isLive: true,
+          url: store.state.rtmpAddressCar.replace("rtmp", "http").replace("33308", "33309") + ".flv"
+        });
+        flvPlayerCar.attachMediaElement(videoCar);
+        flvPlayerCar.load();
+        flvPlayerCar.play();
+      }
     }
   },
   mounted() {
@@ -91,6 +127,14 @@ export default {
       setTimeout(() => {
         this.checkServer()
         this.getState()
+      }, 0)
+    }, 1000)
+    const video = setInterval(() => {
+      setTimeout(() => {
+        if (store.state.rtmpAddressCourt !== '' && store.state.rtmpAddressCar !== '') {
+          this.setVideo()
+          clearInterval(video)
+        }
       }, 0)
     }, 1000)
   }

@@ -55,3 +55,17 @@ export async function checkServer() {
 export async function getState(deviceCode) {
   return await get(address + '/api/v1/state' + '?device_code=' + deviceCode)
 }
+
+/**
+ * 获取地图
+ */
+export async function getMap(deviceCode) {
+  return await get(address + '/api/v1/map' + '?device_code=' + deviceCode)
+}
+
+/**
+ * 删除地图
+ */
+export async function deleteMap(data) {
+  return await post(address + '/api/v1/map/delete', data)
+}

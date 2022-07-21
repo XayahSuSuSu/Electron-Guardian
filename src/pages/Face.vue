@@ -32,6 +32,21 @@
         </q-card-actions>
       </q-card>
     </q-dialog>
+    <q-dialog v-model="prompt" persistent>
+      <q-card style="min-width: 350px">
+        <q-card-section>
+          <div class="text-h6">请命名照片</div>
+        </q-card-section>
+
+        <q-card-section class="q-pt-none">
+          <q-input dense v-model="currentName" autofocus @keyup.enter="prompt = false"/>
+        </q-card-section>
+
+        <q-card-actions align="right" class="text-primary">
+          <q-btn flat label="确定" @click="onUploadConfirm" v-close-popup/>
+        </q-card-actions>
+      </q-card>
+    </q-dialog>
   </q-page>
 </template>
 
@@ -45,7 +60,9 @@ export default {
   data: () => ({
     pictureList: [],
     confirm: false,
-    currentPath: ''
+    prompt: false,
+    currentPath: '',
+    currentName: '',
   }),
   methods: {
     deletePictureOnConfirm() {
@@ -72,12 +89,15 @@ export default {
       })
     },
     onUploadClick() {
+      this.prompt = true
+    },
+    onUploadConfirm() {
       this.$refs.input.dispatchEvent(new MouseEvent('click'))
     },
     upload(e) {
       const file = this.$refs.input.files[0];
       let data = new FormData();
-      data.append('name', '赵美延');
+      data.append('name', this.currentName);
       data.append('device_code', store.state.deviceCode);
       data.append('file', file);
       uploadPictures(data).then(() => {

@@ -83,6 +83,7 @@ export default {
       uploadPictures(data).then(() => {
         this.getPictures()
       })
+      e.target.value = ""
     }
   },
   mounted() {

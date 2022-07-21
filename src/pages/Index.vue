@@ -1,6 +1,6 @@
 <template>
-  <q-page>
-    <q-card class="q-box q-mt-16 q-mh-24">
+  <q-page class="q-pt-md">
+    <q-card class="q-box q-mh-24">
       <div class="text-h6 q-pt-16 q-pl-16">运行状态</div>
       <q-card-section>
         <div class="row">

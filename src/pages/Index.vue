@@ -70,6 +70,8 @@ export default {
     state: '',
     battery_car: '',
     battery_drone: '',
+    loop_state: null,
+    loop_video: null
   }),
   methods: {
     checkServer() {
@@ -123,20 +125,24 @@ export default {
   },
   mounted() {
     document.title = "瞩暮行者维护端"
-    setInterval(() => {
+    this.loop_state = setInterval(() => {
       setTimeout(() => {
         this.checkServer()
         this.getState()
       }, 0)
     }, 1000)
-    const video = setInterval(() => {
+    this.loop_video = setInterval(() => {
       setTimeout(() => {
         if (store.state.rtmpAddressCourt !== '' && store.state.rtmpAddressCar !== '') {
           this.setVideo()
-          clearInterval(video)
+          clearInterval(this.loop_video)
         }
       }, 0)
     }, 1000)
+  },
+  destroyed() {
+    clearInterval(this.loop_state)
+    clearInterval(this.loop_video)
   }
 }
 </script>

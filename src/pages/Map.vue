@@ -8,7 +8,8 @@
           :src="i.path"
           style="border-radius: 12px">
           <div class="absolute-bottom text-center">
-            <q-btn class="q-ml-md  text-subtitle2 text-weight-bold" flat label="删除" @click="deleteMap(i.path)"/>
+            <q-btn round dense size="xs" flat icon="fa-solid fa-trash-can" @click="deletePicture(i.path)"
+                   style="padding: 8px"/>
           </div>
         </q-img>
       </div>

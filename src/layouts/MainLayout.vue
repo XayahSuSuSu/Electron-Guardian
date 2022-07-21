@@ -89,12 +89,16 @@ const menuList = [
     icon: 'fa-solid fa-house',
   },
   {
-    title: '设备管理',
-    icon: 'fa-solid fa-desktop',
+    title: '人脸管理',
+    icon: 'fa-solid fa-face-grin',
   },
   {
     title: '地图管理',
     icon: 'fa-solid fa-layer-group',
+  },
+  {
+    title: '设备管理',
+    icon: 'fa-solid fa-desktop',
   },
 ];
 
@@ -120,6 +124,9 @@ export default {
           break
         case "地图管理":
           this.$router.push('/map');
+          break
+        case "人脸管理":
+          this.$router.push('/face');
           break
         default:
           this.$router.push('/main');

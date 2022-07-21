@@ -1,7 +1,7 @@
 /**
  * 上传音频
  */
-import {post, get} from "src/request/request";
+import {get, post} from "src/request/request";
 
 const address = 'http://localhost:33307'
 
@@ -68,4 +68,25 @@ export async function getMap(deviceCode) {
  */
 export async function deleteMap(data) {
   return await post(address + '/api/v1/map/delete', data)
+}
+
+/**
+ * 获取照片
+ */
+export async function getPictures(deviceCode) {
+  return await get(address + '/api/v1/pictures' + '?device_code=' + deviceCode)
+}
+
+/**
+ * 上传照片
+ */
+export async function uploadPictures(data) {
+  return await post(address + '/api/v1/pictures', data)
+}
+
+/**
+ * 删除照片
+ */
+export async function deletePictures(data) {
+  return await post(address + '/api/v1/pictures/delete', data)
 }

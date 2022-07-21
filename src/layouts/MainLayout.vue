@@ -12,7 +12,7 @@
         />
 
         <q-toolbar-title>
-          瞩暮行者
+          瞩暮行者 - {{ menuActive }}
         </q-toolbar-title>
       </q-toolbar>
     </q-header>
@@ -113,7 +113,7 @@ export default {
       alert: true,
       qrCode: '',
       qrId: '',
-      refreshTime: 1000
+      refreshTime: 1000,
     }
   },
   methods: {

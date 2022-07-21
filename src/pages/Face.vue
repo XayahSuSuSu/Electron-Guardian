@@ -23,7 +23,7 @@
       <q-card>
         <q-card-section class="row items-center">
           <q-avatar color="negative" icon="fa-solid fa-circle-exclamation" text-color="white"/>
-          <span class="q-ml-sm">确定移除该地图吗？</span>
+          <span class="q-ml-sm">确定移除该照片吗？</span>
         </q-card-section>
 
         <q-card-actions align="right">

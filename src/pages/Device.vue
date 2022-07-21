@@ -2,7 +2,6 @@
   <q-page>
     <div class="q-pa-md">
       <q-table
-        title="设备管理（模拟）"
         :data="data"
         :columns="columns"
         row-key="name"

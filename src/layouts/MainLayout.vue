@@ -97,7 +97,7 @@ const menuList = [
     icon: 'fa-solid fa-layer-group',
   },
   {
-    title: '设备管理',
+    title: '设备管理（模拟）',
     icon: 'fa-solid fa-desktop',
   },
 ];
@@ -119,7 +119,7 @@ export default {
   methods: {
     toDevice(title) {
       switch (title) {
-        case "设备管理":
+        case "设备管理（模拟）":
           this.$router.push('/device');
           break
         case "地图管理":

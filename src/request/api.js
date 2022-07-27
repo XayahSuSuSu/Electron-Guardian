@@ -3,7 +3,7 @@
  */
 import {get, post} from "src/request/request";
 
-const address = 'http://localhost:33307'
+const address = 'http://118.24.139.23:33307'
 
 export default address
 

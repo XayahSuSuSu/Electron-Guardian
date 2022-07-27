@@ -105,7 +105,8 @@ export default {
         const flvPlayerCourt = flvjs.createPlayer({
           type: 'flv',
           isLive: true,
-          url: store.state.rtmpAddressCourt.replace("rtmp", "http").replace("33308", "33309") + ".flv"
+          hasAudio: false,
+          url: 'http://118.24.139.23:33309/live?app=stream&stream=court'
         });
         flvPlayerCourt.attachMediaElement(videoCourt);
         flvPlayerCourt.load();
@@ -115,7 +116,8 @@ export default {
         const flvPlayerCar = flvjs.createPlayer({
           type: 'flv',
           isLive: true,
-          url: store.state.rtmpAddressCar.replace("rtmp", "http").replace("33308", "33309") + ".flv"
+          hasAudio: false,
+          url: 'http://118.24.139.23:33309/live?app=stream&stream=court'
         });
         flvPlayerCar.attachMediaElement(videoCar);
         flvPlayerCar.load();
